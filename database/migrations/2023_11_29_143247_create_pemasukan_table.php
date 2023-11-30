@@ -15,7 +15,7 @@ class CreatePemasukanTable extends Migration
     {
         Schema::create('pemasukan', function (Blueprint $table) {
             $table->increments('id');
-        $table->unsignedBigInteger('users_id');
+        $table->unsignedInteger('users_id');
         $table->foreign('users_id')->references('id')->on('users');
         $table->string('nama_pemasukan');
         $table->string('kategori');

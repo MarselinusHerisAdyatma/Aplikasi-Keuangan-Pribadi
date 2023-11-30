@@ -15,7 +15,8 @@ class CreatePengeluaranTable extends Migration
     {
         Schema::create('pengeluaran', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('users_id');
+            $table->unsignedInteger('users_id');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->string('nama_pengeluaran');
             $table->string('kategori');
             $table->date('tanggal_pengeluaran');
@@ -23,7 +24,7 @@ class CreatePengeluaranTable extends Migration
             $table->timestamps();
 
             // Definisikan relasi foreign key
-            $table->foreign('users_id')->references('id')->on('users');
+            
         });
     }
 
