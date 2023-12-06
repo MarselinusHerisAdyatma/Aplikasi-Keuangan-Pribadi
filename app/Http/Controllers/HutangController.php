@@ -38,6 +38,7 @@ class HutangController extends Controller
 
         return redirect('/hutang')->with('status', 'Data Hutang Sukses Dihapus');
     }
+    
 
     public function filter(Request $request)
     {
