@@ -51,6 +51,8 @@ Route::group(['middleware' => []], function () {
     Route::get('/hutang', 'HutangController@index');
     Route::post('/hutang/add', 'HutangController@add');
     Route::get('/hutang/{id}/delete', 'HutangController@delete');
+    Route::get('/hutang/{id}/edit', 'HutangController@edit');
+    Route::post('/hutang/{id}/update', 'HutangController@update');
     Route::match(array('GET', 'POST'), '/hutang/filter', 'HutangController@filter');
     Route::match(array('GET', 'POST'), '/hutang/print', 'HutangController@print');
 

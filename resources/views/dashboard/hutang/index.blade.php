@@ -32,8 +32,12 @@
                 <td>{{ $hutang->kategori }}</td>
                 <td>Rp. {{ number_format($hutang->nominal_hutang, 0, ',', '.') }}</td>
                 <td>{{ date("d-m-Y", strtotime($hutang->tanggal_hutang)) }}</td>
-                <td><a href="/hutang/{{ $hutang->id }}/delete" class="btn btn-sm btn-danger shadow-sm mb-3"
-                        onclick="return confirm('Apakah anda ingin menghapus data hutang {{ $hutang->nama_penghutang }}?')"><i
+                <td>
+                <a href="/hutang/{{ $hutang->id }}/edit" class="btn btn-sm btn-warning shadow-sm mb-3">
+                            <i class="fas fa-edit fa-sm text-white-50"></i> Edit
+                        </a>
+                <a href="/hutang/{{ $hutang->id }}/delete" class="btn btn-sm btn-danger shadow-sm mb-3"
+                        onclick="return confirm('Apakah anda ingin menghapus data hutang ({{ $hutang->nama_orang }})?')"><i
                             class="fas fa-trash fa-sm text-white-50"></i> Hapus</a>
                 </td>
             </tr>

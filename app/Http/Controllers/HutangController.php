@@ -39,6 +39,30 @@ class HutangController extends Controller
         return redirect('/hutang')->with('status', 'Data Hutang Sukses Dihapus');
     }
     
+    public function edit($id)
+    {
+        $hutang = Hutang::find($id);
+        return view('dashboard.hutang.edit', ['hutang' => $hutang]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'nama_orang' => 'required|min:3',
+            'kategori' => 'required',
+            'nominal_hutang' => 'required|numeric',
+            'tanggal_hutang' => 'required',
+        ]);
+
+        $hutang = Hutang::find($id);
+        $hutang->nama_orang = $request->nama_orang;
+        $hutang->kategori = $request->kategori;
+        $hutang->nominal_hutang = $request->nominal_hutang;
+        $hutang->tanggal_hutang = $request->tanggal_hutang;
+        $hutang->save();
+
+        return redirect('/hutang')->with('status', 'Data Hutang Sukses Diubah');
+    }
 
     public function filter(Request $request)
     {
