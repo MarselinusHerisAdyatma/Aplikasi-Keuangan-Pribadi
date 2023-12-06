@@ -32,7 +32,11 @@
                 <td>{{ $pengeluaran->kategori }}</td>
                 <td>{{ date("d-m-Y", strtotime($pengeluaran->tanggal_pengeluaran)) }}</td>
                 <td>Rp. {{ number_format($pengeluaran->jumlah_pengeluaran, 0, ',', '.') }}</td>
-                <td><a href="/pengeluaran/{{ $pengeluaran->id }}/delete" class="btn btn-sm btn-danger shadow-sm mb-3"
+                <td>
+                    <a href="/pengeluaran/{{ $pengeluaran->id }}/edit" class="btn btn-sm btn-warning shadow-sm mb-3">
+                        <i class="fas fa-edit fa-sm text-white-50"></i> Edit
+                    </a>
+                    <a href="/pengeluaran/{{ $pengeluaran->id }}/delete" class="btn btn-sm btn-danger shadow-sm mb-3"
                         onclick="return confirm('Apakah anda ingin menghapus data ({{ $pengeluaran->nama_pengeluaran }})?')"><i
                             class="fas fa-trash fa-sm text-white-50"></i> Hapus</a>
                 </td>

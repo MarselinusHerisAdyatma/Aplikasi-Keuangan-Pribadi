@@ -33,6 +33,8 @@ Route::group(['middleware' => []], function () {
     Route::get('/pengeluaran', 'PengeluaranController@index');
     Route::post('/pengeluaran/add', 'PengeluaranController@add');
     Route::get('/pengeluaran/{id}/delete', 'PengeluaranController@delete');
+    Route::get('/pengeluaran/{id}/edit', 'PengeluaranController@edit');
+    Route::post('/pengeluaran/{id}/update', 'PengeluaranController@update');
     Route::match(array('GET', 'POST'), '/pengeluaran/filter', 'PengeluaranController@filter');
     Route::match(array('GET', 'POST'), '/pengeluaran/print', 'PengeluaranController@print');
 

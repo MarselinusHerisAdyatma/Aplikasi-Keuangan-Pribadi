@@ -31,14 +31,13 @@ class PemasukanController extends Controller
         $pemasukan->save();
 
         $user = User::find(auth()->user()->id);
-        $total_pemasukan_baru = $request->jumlah_pemasukan + $user->total_pemasukan;
         $saldo_baru = $request->jumlah_pemasukan + $user->saldo;
 
-        User::where('id', auth()->user()->id)
-            ->update([
-                'saldo' => $saldo_baru,
-                'total_pemasukan' => $total_pemasukan_baru
-            ]);
+        // User::where('id', auth()->user()->id)
+        //     ->update([
+        //         'saldo' => $saldo_baru,
+        //         'total_pemasukan' => $total_pemasukan_baru
+        //     ]);
 
         return redirect('/pemasukan')->with('status', 'Sukses Tambah Pemasukan');
     }
@@ -49,11 +48,11 @@ class PemasukanController extends Controller
         $user_data = User::find($pemasukan_data->users_id);
         $total_pemasukan_baru = $user_data->total_pemasukan - $pemasukan_data->jumlah_pemasukan;
         $saldo_baru = $user_data->saldo - $pemasukan_data->jumlah_pemasukan;
-        User::where('id', auth()->user()->id)
-            ->update([
-                'saldo' => $saldo_baru,
-                'total_pemasukan' => $total_pemasukan_baru
-            ]);
+        // User::where('id', auth()->user()->id)
+        //     ->update([
+        //         'saldo' => $saldo_baru,
+        //         'total_pemasukan' => $total_pemasukan_baru
+        //     ]);
         $pemasukan_data->delete();
 
         return redirect('/pemasukan')->with('status', 'Data Pemasukan Sukses Dihapus');

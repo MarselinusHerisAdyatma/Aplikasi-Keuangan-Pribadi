@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 191)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->decimal('saldo', 10,2)->default(0.00);
             $table->rememberToken();
             $table->timestamps();
         });

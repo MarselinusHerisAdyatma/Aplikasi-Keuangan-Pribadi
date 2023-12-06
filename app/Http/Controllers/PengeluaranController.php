@@ -34,11 +34,11 @@ class PengeluaranController extends Controller
         $total_pengeluaran_baru = $request->jumlah_pengeluaran + $user->total_pengeluaran;
         $saldo_baru = $user->saldo - $request->jumlah_pengeluaran;
 
-        User::where('id', auth()->user()->id)
-            ->update([
-                'saldo' => $saldo_baru,
-                'total_pengeluaran' => $total_pengeluaran_baru
-            ]);
+        // User::where('id', auth()->user()->id)
+        //     ->update([
+        //         'saldo' => $saldo_baru,
+        //         'total_pengeluaran' => $total_pengeluaran_baru
+        //     ]);
 
         return redirect('/pengeluaran')->with('status', 'Sukses Tambah Pengeluaran');
     }
@@ -49,14 +49,40 @@ class PengeluaranController extends Controller
         $user_data = User::find($pengeluaran_data->users_id);
         $total_pengeluaran_baru = $user_data->total_pengeluaran - $pengeluaran_data->jumlah_pengeluaran;
         $saldo_baru = $user_data->saldo + $pengeluaran_data->jumlah_pengeluaran;
-        User::where('id', auth()->user()->id)
-            ->update([
-                'saldo' => $saldo_baru,
-                'total_pengeluaran' => $total_pengeluaran_baru
-            ]);
+        // User::where('id', auth()->user()->id)
+        //     ->update([
+        //         'saldo' => $saldo_baru,
+        //         'total_pengeluaran' => $total_pengeluaran_baru
+        //     ]);
         $pengeluaran_data->delete();
 
         return redirect('/pengeluaran')->with('status', 'Data Pengeluaran Sukses Dihapus');
+    }
+
+    public function edit($id)
+    {
+        $pengeluaran = Pengeluaran::find($id);
+        return view('dashboard.pengeluaran.edit', ['pengeluaran' => $pengeluaran]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'nama_pengeluaran' => 'required|min:3',
+            'kategori' => 'required',
+            'tanggal_pengeluaran' => 'required',
+            'jumlah_pengeluaran' => 'required|numeric'
+        ]);
+
+    $pengeluaran = Pengeluaran::find($id);
+    // Update the fields accordingly
+    $pengeluaran->nama_pengeluaran = $request->nama_pengeluaran;
+    $pengeluaran->kategori = $request->kategori;
+    $pengeluaran->tanggal_pengeluaran = $request->tanggal_pengeluaran;
+    $pengeluaran->jumlah_pengeluaran = $request->jumlah_pengeluaran;
+    $pengeluaran->save();
+
+    return redirect('/pengeluaran')->with('status', 'Sukses Update Pengeluaran');
     }
 
     public function filter(Request $request)
