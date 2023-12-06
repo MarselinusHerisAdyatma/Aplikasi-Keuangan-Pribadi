@@ -58,6 +58,31 @@ class PemasukanController extends Controller
         return redirect('/pemasukan')->with('status', 'Data Pemasukan Sukses Dihapus');
     }
 
+    public function edit($id)
+    {
+        $pemasukan = Pemasukan::find($id);
+        return view('dashboard.pemasukan.edit', ['pemasukan' => $pemasukan]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'nama_pemasukan' => 'required|min:3',
+            'kategori' => 'required',
+            'tanggal_pemasukan' => 'required',
+            'jumlah_pemasukan' => 'required|numeric'
+        ]);
+
+        $pemasukan = Pemasukan::find($id);
+        $pemasukan->nama_pemasukan = $request->nama_pemasukan;
+        $pemasukan->kategori = $request->kategori;
+        $pemasukan->tanggal_pemasukan = $request->tanggal_pemasukan;
+        $pemasukan->jumlah_pemasukan = $request->jumlah_pemasukan;
+        $pemasukan->save();
+
+        return redirect('/pemasukan')->with('status', 'Data Pemasukan Sukses Diubah');
+    }
+
     public function filter(Request $request)
     {
         if (!$request->startdate && !$request->enddate) {

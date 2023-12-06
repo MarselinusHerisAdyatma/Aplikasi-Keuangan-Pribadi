@@ -27,6 +27,8 @@ Route::group(['middleware' => []], function () {
     Route::get('/pemasukan', 'PemasukanController@index');
     Route::post('/pemasukan/add', 'PemasukanController@add');
     Route::get('/pemasukan/{id}/delete', 'PemasukanController@delete');
+    Route::get('/pemasukan/{id}/edit', 'PemasukanController@edit');
+    Route::post('/pemasukan/{id}/update', 'PemasukanController@update');
     Route::match(array('GET', 'POST'), '/pemasukan/filter', 'PemasukanController@filter');
     Route::match(array('GET', 'POST'), '/pemasukan/print', 'PemasukanController@print');
 
