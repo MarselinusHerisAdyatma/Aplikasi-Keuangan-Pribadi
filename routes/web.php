@@ -56,6 +56,15 @@ Route::group(['middleware' => []], function () {
     Route::match(array('GET', 'POST'), '/hutang/filter', 'HutangController@filter');
     Route::match(array('GET', 'POST'), '/hutang/print', 'HutangController@print');
 
+    Route::get('/investasi', 'InvestasiController@index');
+    Route::post('/investasi/add', 'InvestasiController@add');
+    Route::get('/investasi/{id}/delete', 'InvestasiController@delete');
+    Route::get('/investasi/{id}/edit', 'InvestasiController@edit');
+    Route::post('/investasi/{id}/update', 'InvestasiController@update');
+    Route::match(array('GET', 'POST'), '/investasi/filter', 'InvestasiController@filter');
+    Route::match(array('GET', 'POST'), '/investasi/print', 'InvestasiController@print');
+
+
     Route::get('/user/changepassword', 'UserController@changepassword');
     Route::post('/user/postchangepassword', 'UserController@postchangepassword');
 });

@@ -90,6 +90,22 @@
         </div>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities4"
+            aria-expanded="true" aria-controls="collapseUtilities4">
+            <i class="fas fa-fw fa-chart-line"></i>
+            <span>Investasi</span>
+        </a>
+        <div id="collapseUtilities4" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">MENU INVESTASI</h6>
+                <a class="collapse-item" href="/investasi">Daftar Investasi</a>
+                <a class="collapse-item" href="/investasi/filter">Cetak Investasi</a>
+            </div>
+        </div>
+    </li>
+
     @if(auth()->user()->role == "admin")
     <hr class="sidebar-divider">
     <div class="sidebar-heading">
