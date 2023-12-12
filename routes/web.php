@@ -64,6 +64,14 @@ Route::group(['middleware' => []], function () {
     Route::match(array('GET', 'POST'), '/investasi/filter', 'InvestasiController@filter');
     Route::match(array('GET', 'POST'), '/investasi/print', 'InvestasiController@print');
 
+    Route::get('/akun_keuangan', 'AkunKeuanganController@index');
+    Route::post('/akun_keuangan/add', 'AkunKeuanganController@add');
+    Route::get('/akun_keuangan/{id}/delete', 'AkunKeuanganController@delete');
+    Route::get('/akun_keuangan/{id}/edit', 'AkunKeuanganController@edit');
+    Route::post('/akun_keuangan/{id}/update', 'AkunKeuanganController@update');
+    Route::match(array('GET', 'POST'), '/akun_keuangan/filter', 'AkunKeuanganController@filter');
+    Route::match(array('GET', 'POST'), '/akun_keuangan/print', 'AkunKeuanganController@print');
+
 
     Route::get('/user/changepassword', 'UserController@changepassword');
     Route::post('/user/postchangepassword', 'UserController@postchangepassword');

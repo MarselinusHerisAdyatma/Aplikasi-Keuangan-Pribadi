@@ -76,7 +76,7 @@
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3"
-            aria-expanded="true" aria-controls="collapseUtilities2">
+            aria-expanded="true" aria-controls="collapseUtilities3">
             <i class="fas fa-fw fa-dollar-sign"></i>
             <span>Hutang</span>
         </a>
@@ -93,10 +93,26 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities4"
             aria-expanded="true" aria-controls="collapseUtilities4">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Akun Keuangan</span>
+        </a>
+        <div id="collapseUtilities4" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">MENU AKUN KEUANGAN</h6>
+                <a class="collapse-item" href="/akun_keuangan">Daftar Akun Keuangan</a>
+                <a class="collapse-item" href="/akun_keuangan/filter">Cetak Akun Keuangan</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities5"
+            aria-expanded="true" aria-controls="collapseUtilities5">
             <i class="fas fa-fw fa-chart-line"></i>
             <span>Investasi</span>
         </a>
-        <div id="collapseUtilities4" class="collapse" aria-labelledby="headingUtilities"
+        <div id="collapseUtilities5" class="collapse" aria-labelledby="headingUtilities"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">MENU INVESTASI</h6>
