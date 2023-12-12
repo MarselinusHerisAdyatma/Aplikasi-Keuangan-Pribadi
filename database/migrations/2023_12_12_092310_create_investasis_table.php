@@ -14,10 +14,11 @@ class CreateInvestasisTable extends Migration
     public function up()
     {
         Schema::create('investasis', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('id_jenis');
-            $table->unsignedInteger('id_kategori');
+            $table->unsignedInteger('id_jenis')->nullable(); // Allow NULL for id_jenis
+            $table->unsignedInteger('id_kategori')->nullable(); // Allow NULL for id_jenis
             $table->enum('investasi', ['beli', 'jual']);
             $table->string('nama_investasi');
             $table->string('nama_bank');
@@ -32,8 +33,8 @@ class CreateInvestasisTable extends Migration
 
             // Foreign key constraints
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('id_jenis')->references('id')->on('your_jenis_table');
-            $table->foreign('id_kategori')->references('id')->on('your_kategori_table');
+            $table->foreign('id_jenis')->references('id')->on('your_jenis')->nullable(); // Allow NULL for id_jenis
+            $table->foreign('id_kategori')->references('id')->on('your_kategori')->nullable();
         });
     }
 
