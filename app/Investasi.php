@@ -10,8 +10,6 @@ class Investasi extends Model
 
     protected $fillable = [
         'user_id',
-        'id_jenis',
-        'id_kategori',
         'investasi',
         'nama_investasi',
         'nama_bank',
@@ -28,15 +26,5 @@ class Investasi extends Model
     public function jenis()
     {
         return $this->belongsTo(Jenis::class, 'id_jenis');
-    }
-
-    public function kategori()
-    {
-        return $this->belongsTo(Kategori::class, 'id_kategori');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
     }
 }
