@@ -17,8 +17,6 @@ class CreateInvestasisTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('id_jenis')->nullable(); // Allow NULL for id_jenis
-            $table->unsignedInteger('id_kategori')->nullable(); // Allow NULL for id_jenis
             $table->enum('investasi', ['Beli', 'Jual']);
             $table->string('nama_investasi');
             $table->string('nama_bank');
@@ -33,8 +31,7 @@ class CreateInvestasisTable extends Migration
 
             // Foreign key constraints
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('id_jenis')->references('id')->on('jenis_transaksi')->nullable(); // Allow NULL for id_jenis
-            $table->foreign('id_kategori')->references('id')->on('kategori_transaksi')->nullable();
+
         });
     }
 
