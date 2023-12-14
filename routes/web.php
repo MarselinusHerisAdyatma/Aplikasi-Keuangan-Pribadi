@@ -48,6 +48,14 @@ Route::group(['middleware' => []], function () {
     Route::match(array('GET', 'POST'), '/wishlist/filter', 'WishlistController@filter');
     Route::match(array('GET', 'POST'), '/wishlist/print', 'WishlistController@print');
 
+    Route::get('/asuransi', 'AsuransiController@index');
+    Route::post('asuransi/add', 'AsuransiController@add');
+    Route::get('/asuransi/{id}/edit', 'AsuransiController@edit');
+    Route::post('/asuransi/{id}/postEdit', 'AsuransiController@postEdit');
+    Route::get('/asuransi/{id}/delete', 'AsuransiController@delete');
+    Route::match(array('GET', 'POST'), '/asuransi/filter', 'AsuransiController@filter');
+    Route::match(array('GET', 'POST'), '/asuransi/print', 'AsuransiController@print');
+
     Route::get('/hutang', 'HutangController@index');
     Route::post('/hutang/add', 'HutangController@add');
     Route::get('/hutang/{id}/delete', 'HutangController@delete');

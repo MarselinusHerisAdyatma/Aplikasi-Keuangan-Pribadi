@@ -1,7 +1,7 @@
 @extends('dashboard.layout.master')
 
 @section('title_content')
-<h6 class="m-0 font-weight-bold text-primary">Data Wishlist</h6>
+<h6 class="m-0 font-weight-bold text-primary">Data Asuransi</h6>
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
 <button type="button" class="btn btn-sm btn-success shadow-sm mb-3" data-toggle="modal" data-target="#addModal"><i
         class="fas fa-plus fa-sm text-white-50"></i>
     Tambah
-    Wishlist</button>
+    Asuransi</button>
 <div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>

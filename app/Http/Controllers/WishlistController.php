@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Wishlist;
 
 class WishlistController extends Controller
 {
     public function index()
     {
-        $wishlist = Wishlist::where('users_id', auth()->user()->id)->get();
-
+        $wishlist = Pemasukan::where('users_id', auth()->user()->id)->get();
         return view('dashboard.wishlist.index', ['wishlist' => $wishlist]);
     }
 
@@ -18,92 +16,77 @@ class WishlistController extends Controller
     {
         $this->validate($request, [
             'nama_wishlist' => 'required|min:3',
-            'harga_wishlist' => 'required|numeric',
+            'kategori' => 'required',
             'tanggal_wishlist' => 'required',
-            'image_wishlist' => 'mimes:jpg,png,jpeg|max:3100'
+            'nominal' => 'required|numeric'
+            'tanggal_target' => 'required',
+            'keterangan' => 'required'
         ]);
+        $wishlist = new Wishlist;
+        $wishlist->users_id = auth()->user()->id;
+        $wishlist->nama_wishlist = $request->nama_wishlist;
+        $wishlist->kategori = $request->kategori;
+        $wishlist->tanggal_wishlist = $request->tanggal_wishlist;
+        $wishlist->nominal = $request->nominal;
+        $wishlist->tanggal_target = $request->tanggal_target;
+        $wishlist->keterangan = $request->keterangan;
+        $wishlist->save();
 
-        $pathUpload = 'img/wishlist';
-        $data_wishlist = new Wishlist;
-        $data_wishlist->users_id = auth()->user()->id;
-        $data_wishlist->nama_wishlist = $request->nama_wishlist;
-        $data_wishlist->harga_wishlist = $request->harga_wishlist;
-        $data_wishlist->tanggal_wishlist = $request->tanggal_wishlist;
+        $user = User::find(auth()->user()->id);
+        // $saldo_baru = $request->jumlah_pemasukan + $user->saldo;
 
-        if ($request->hasFile('image_wishlist')) {
-            $image = str_replace(" ", "", $request->file('image_wishlist')->getClientOriginalName());
-
-            $nama_file = date('dmYHis') . "_" . $image;
-
-            $request->file('image_wishlist')->move($pathUpload, $nama_file);
-            // dd($nama_file);
-            $data_wishlist->image_wishlist = $nama_file;
-            $data_wishlist->save();
-        } else {
-            $data_wishlist->image_wishlist = "noimage.jpg";
-            $data_wishlist->save();
-        }
+        // User::where('id', auth()->user()->id)
+        //     ->update([
+        //         'saldo' => $saldo_baru,
+        //         'total_pemasukan' => $total_pemasukan_baru
+        //     ]);
 
         return redirect('/wishlist')->with('status', 'Sukses Tambah Wishlist');
+    }
+
+    public function delete($id)
+    {
+        $wishlist_data = Wishlist::find($id);
+        $user_data = User::find($wishlist_data->users_id);
+        $total_wishlist_baru = $user_data->total_wishlist - $wishlist_data->nominal;
+        $saldo_baru = $user_data->saldo - $wishlist_data->nominal;
+        // User::where('id', auth()->user()->id)
+        //     ->update([
+        //         'saldo' => $saldo_baru,
+        //         'total_pemasukan' => $total_pemasukan_baru
+        //     ]);
+        $wishlist_data->delete();
+
+        return redirect('/wishlist')->with('status', 'Data Wishlist Sukses Dihapus');
     }
 
     public function edit($id)
     {
         $wishlist = Wishlist::find($id);
-        // dd($wishlist);
         return view('dashboard.wishlist.edit', ['wishlist' => $wishlist]);
     }
 
-    public function postEdit(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'nama_wishlist' => 'required|min:3',
-            'harga_wishlist' => 'required|numeric',
+            'kategori' => 'required',
             'tanggal_wishlist' => 'required',
-            'status_wishlist' => 'required',
-            'image_wishlist' => 'mimes:jpg,png,jpeg|max:3100'
+            'nominal' => 'required|numeric'
+            'tanggal_target' => 'required',
+            'keterangan' => 'required'
         ]);
 
-        $pathUpload = 'img/wishlist/';
-        $data_wishlist = Wishlist::find($id);
-        // dd($data_wishlist);
-        $data_wishlist->nama_wishlist = $request->nama_wishlist;
-        $data_wishlist->harga_wishlist = $request->harga_wishlist;
-        $data_wishlist->tanggal_wishlist = $request->tanggal_wishlist;
-        $data_wishlist->status_wishlist = $request->status_wishlist;
+        $wishlist = Wishlist::find($id);
+        $wishlist->nama_wishlist = $request->nama_wishlist;
+        $wishlist->kategori = $request->kategori;
+        $wishlist->tanggal_wishlist = $request->tanggal_wishlist;
+        $wishlist->nominal = $request->nominal;
+        $wishlist->tanggal_target = $request->tanggal_target;
+        $wishlist->keterangan = $request->keterangan;
+        $wishlist->save();
 
-        $currentImage = $data_wishlist->image_wishlist;
-
-        if ($request->hasFile('image_wishlist')) {
-            if ($currentImage != "noimage.jpg") {
-                unlink($pathUpload . $data_wishlist->image_wishlist);
-            }
-
-            $image = str_replace(" ", "", $request->file('image_wishlist')->getClientOriginalName());
-
-            $nama_file = date('dmYHis') . "_" . $image;
-
-            $request->file('image_wishlist')->move($pathUpload, $nama_file);
-            // dd($nama_file);
-            $data_wishlist->image_wishlist = $nama_file;
-            $data_wishlist->save();
-        } else {
-            $data_wishlist->save();
-        }
-
-        return redirect('/wishlist')->with('status', 'Sukses Edit Wishlist');
-    }
-
-    public function delete($id)
-    {
-        $pathUpload = 'img/wishlist/';
-        $data_wishlist = Wishlist::find($id);
-        if ($data_wishlist->image_wishlist != "noimage.jpg") {
-            unlink($pathUpload . $data_wishlist->image_wishlist);
-        }
-
-        $data_wishlist->delete();
-        return redirect('/wishlist')->with('status', 'Sukses Hapus Wishlist');
+        return redirect('/wishlist')->with('status', 'Data Wishlist Sukses Diubah');
     }
 
     public function filter(Request $request)
