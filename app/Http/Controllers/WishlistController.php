@@ -18,7 +18,7 @@ class WishlistController extends Controller
             'nama_wishlist' => 'required|min:3',
             'kategori' => 'required',
             'tanggal_wishlist' => 'required',
-            'nominal' => 'required|numeric'
+            'nominal' => 'required|numeric',
             'tanggal_target' => 'required',
             'keterangan' => 'required'
         ]);
@@ -72,7 +72,7 @@ class WishlistController extends Controller
             'nama_wishlist' => 'required|min:3',
             'kategori' => 'required',
             'tanggal_wishlist' => 'required',
-            'nominal' => 'required|numeric'
+            'nominal' => 'required|numeric',
             'tanggal_target' => 'required',
             'keterangan' => 'required'
         ]);
