@@ -1,26 +1,30 @@
 @extends('dashboard.layout.reportmaster')
 
 @section('title_content')
-Pemasukan
+Wishlist
 @endsection
 
 @section('content')
 <table class="table table-bordered" style="margin-top: 10px">
     <thead class="thead-dark">
         <tr>
-            <th>Nama Pemasukan</th>
-            <th>Kategori</th>
-            <th>Tanggal Pemasukan</th>
-            <th>Jumlah Pemasukan</th>
+        <th>Nama Wishlist</th>
+                <th>Kategori</th>
+                <th>Tanggal Wishlist Dibuat</th>
+                <th>Nominal</th>
+                <th>Tanggal Target</th>
+                <th>Keterangan</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($pemasukan as $pemasukan)
+        @foreach($wishlist as $wishlist)
         <tr>
-            <td>{{ $pemasukan->nama_pemasukan }}</td>
-            <td>{{ $pemasukan->kategori }}</td>
-            <td>{{ date("d-m-Y", strtotime($pemasukan->tanggal_pemasukan)) }}</td>
-            <td>Rp. {{ number_format($pemasukan->jumlah_pemasukan, 0, ',', '.') }}</td>
+                <td>{{ $wishlist->nama_wishlist }}</td>
+                <td>{{ $wishlist->kategori }}</td>
+                <td>{{ date("d-m-Y", strtotime($wishlist->tanggal_wishlist)) }}</td>
+                <td>Rp. {{ number_format($wishlist->nominal, 0, ',', '.') }}</td>
+                <td>{{ date("d-m-Y", strtotime($wishlist->tanggal_target)) }}</td>
+                <td>{{ $wishlist->keterangan }}</td>
         </tr>
         @endforeach
     </tbody>

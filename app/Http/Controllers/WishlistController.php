@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Wishlist;
+use App\User;
 
 class WishlistController extends Controller
 {
     public function index()
     {
-        $wishlist = Pemasukan::where('users_id', auth()->user()->id)->get();
+        $wishlist = Wishlist::where('users_id', auth()->user()->id)->get();
         return view('dashboard.wishlist.index', ['wishlist' => $wishlist]);
     }
 

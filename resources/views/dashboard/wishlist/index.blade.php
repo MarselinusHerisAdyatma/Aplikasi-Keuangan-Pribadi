@@ -18,26 +18,30 @@
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
-                <th>Nama Pemasukan</th>
+                <th>Nama Wishlist</th>
                 <th>Kategori</th>
-                <th>Tanggal Pemasukan</th>
-                <th>Jumlah Pemasukan</th>
+                <th>Tanggal Wishlist Dibuat</th>
+                <th>Nominal</th>
+                <th>Tanggal Target</th>
+                <th>Keterangan</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($pemasukan as $pemasukan)
+            @foreach($wishlist as $wishlist)
             <tr>
-                <td>{{ $pemasukan->nama_pemasukan }}</td>
-                <td>{{ $pemasukan->kategori }}</td>
-                <td>{{ date("d-m-Y", strtotime($pemasukan->tanggal_pemasukan)) }}</td>
-                <td>Rp. {{ number_format($pemasukan->jumlah_pemasukan, 0, ',', '.') }}</td>
+                <td>{{ $wishlist->nama_wishlist }}</td>
+                <td>{{ $wishlist->kategori }}</td>
+                <td>{{ date("d-m-Y", strtotime($wishlist->tanggal_wishlist)) }}</td>
+                <td>Rp. {{ number_format($wishlist->nominal, 0, ',', '.') }}</td>
+                <td>{{ date("d-m-Y", strtotime($wishlist->tanggal_target)) }}</td>
+                <td>{{ $wishlist->keterangan }}</td>
                 <td>
-                    <a href="/pemasukan/{{ $pemasukan->id }}/edit" class="btn btn-sm btn-warning shadow-sm mb-3">
+                    <a href="/wishlist/{{ $wishlist->id }}/edit" class="btn btn-sm btn-warning shadow-sm mb-3">
                         <i class="fas fa-edit fa-sm text-white-50"></i> Edit
                     </a>
-                    <a href="/pemasukan/{{ $pemasukan->id }}/delete" class="btn btn-sm btn-danger shadow-sm mb-3"
-                        onclick="return confirm('Apakah anda ingin menghapus data ({{ $pemasukan->nama_pemasukan }})?')"><i
+                    <a href="/wishlist/{{ $wishlist->id }}/delete" class="btn btn-sm btn-danger shadow-sm mb-3"
+                        onclick="return confirm('Apakah anda ingin menghapus data ({{ $wishlist->nama_wishlist }})?')"><i
                         class="fas fa-trash fa-sm text-white-50"></i> Hapus</a>
                 </td>
             </tr>
@@ -52,33 +56,33 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Pemasukan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Wishlist</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/pemasukan/add" method="POST">
+                <form action="/wishlist/add" method="POST">
                     @csrf
-                    <div class="form-group {{ $errors->has('nama_pemasukan') ? ' has-error': '' }}">
-                        <label>Nama Pemasukan</label>
-                        <input type="text" name="nama_pemasukan" class="form-control form-control-user"
-                            value="{{ old('nama_pemasukan') }}" placeholder="Masukan Nama Pemasukan" required>
-                        @if($errors->has('nama_pemasukan'))
-                        <span class="help-block">{{ $errors->first('nama_pemasukan') }}</span>
+                    <div class="form-group {{ $errors->has('nama_wishlist') ? ' has-error': '' }}">
+                        <label>Nama Wishlist</label>
+                        <input type="text" name="nama_wishlist" class="form-control form-control-user"
+                            value="{{ old('nama_wishlist') }}" placeholder="Masukan Nama Wishlist" required>
+                        @if($errors->has('nama_wishlist'))
+                        <span class="help-block">{{ $errors->first('nama_wishlist') }}</span>
                         @endif
                     </div>
                     <div class="form-group {{ $errors->has('kategori') ? ' has-error': '' }}">
                         <label>Kategori</label>
                         <select class="form-control" name="kategori" required>
                             <option value="">Pilih Kategori</option>
-                            <option value="Kerja" {{ (old('kategori') == 'Kerja') ? 'selected' : '' }}>Kerja</option>
-                            <option value="Hadiah" {{ (old('kategori') == 'Hadiah') ? 'selected' : '' }}>Hadiah</option>
-                            <option value="Orang Tua" {{ (old('kategori') == 'Orang Tua') ? 'selected' : '' }}>Orang Tua
+                            <option value="Jangka Pendek" {{ (old('kategori') == 'Jangka Pendek') ? 'selected' : '' }}>Jangka Pendek</option>
+                            <option value="Jangka Panjang" {{ (old('kategori') == 'Jangka Panjang') ? 'selected' : '' }}>Jangka Panjang</option>
+                            <option value="Barang Pribadi" {{ (old('kategori') == 'Barang Pribadi') ? 'selected' : '' }}>Barang Pribadi
                             </option>
-                            <option value="Saham/Investasi"
-                                {{ (old('kategori') == 'Saham/Investasi') ? 'selected' : '' }}>
-                                Saham/Investasi</option>
+                            <option value="Hadiah Orang Tua"
+                                {{ (old('kategori') == 'SHadiah Orang Tua') ? 'selected' : '' }}>
+                                Hadiah Orang Tua</option>
                             <option value="Lain-lain" {{ (old('kategori') == 'Lain-lain') ? 'selected' : '' }}>Lain-Lain
                             </option>
                         </select>
@@ -86,20 +90,36 @@
                         <span class="help-block">{{ $errors->first('kategori') }}</span>
                         @endif
                     </div>
-                    <div class="form-group {{ $errors->has('tanggal_pemasukan') ? ' has-error': '' }}">
-                        <label>Tanggal Pemasukan</label>
-                        <input type="date" name="tanggal_pemasukan" class="form-control form-control-user"
-                            value="{{ old('tanggal_pemasukan') }}" required>
-                        @if($errors->has('tanggal_pemasukan'))
-                        <span class="help-block">{{ $errors->first('tanggal_pemasukan') }}</span>
+                    <div class="form-group {{ $errors->has('tanggal_wishlist') ? ' has-error': '' }}">
+                        <label>Tanggal Wishlist Dibuat</label>
+                        <input type="date" name="tanggal_wishlist" class="form-control form-control-user"
+                            value="{{ old('tanggal_wishlist') }}" required>
+                        @if($errors->has('tanggal_wishlist'))
+                        <span class="help-block">{{ $errors->first('tanggal_wishlist') }}</span>
                         @endif
                     </div>
-                    <div class="form-group {{ $errors->has('jumlah_pemasukan') ? ' has-error': '' }}">
-                        <label>Jumlah Pemasukan</label>
-                        <input type="number" name="jumlah_pemasukan" class="form-control form-control-user"
-                            value="{{ old('jumlah_pemasukan') }}" placeholder="Masukan Jumlah Pemasukan" required>
-                        @if($errors->has('jumlah_pemasukan'))
-                        <span class="help-block">{{ $errors->first('jumlah_pemasukan') }}</span>
+                    <div class="form-group {{ $errors->has('nominal') ? ' has-error': '' }}">
+                        <label>Nominal</label>
+                        <input type="number" name="nominal" class="form-control form-control-user"
+                            value="{{ old('nominal') }}" placeholder="Masukan Jumlah Nominal" required>
+                        @if($errors->has('nominal'))
+                        <span class="help-block">{{ $errors->first('nominal') }}</span>
+                        @endif
+                    </div>
+                    <div class="form-group {{ $errors->has('tanggal_target') ? ' has-error': '' }}">
+                        <label>Tanggal Target Tercapai</label>
+                        <input type="date" name="tanggal_target" class="form-control form-control-user"
+                            value="{{ old('tanggal_target') }}" required>
+                        @if($errors->has('tanggal_target'))
+                        <span class="help-block">{{ $errors->first('tanggal_target') }}</span>
+                        @endif
+                    </div>
+                    <div class="form-group {{ $errors->has('keterangan') ? ' has-error': '' }}">
+                        <label>Keterangan</label>
+                        <input type="text" name="keterangan" class="form-control form-control-user"
+                            value="{{ old('keterangan') }}" placeholder="Masukan Keterangan Wishlist" required>
+                        @if($errors->has('keterangan'))
+                        <span class="help-block">{{ $errors->first('keterangan') }}</span>
                         @endif
                     </div>
             </div>
