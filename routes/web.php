@@ -80,6 +80,13 @@ Route::group(['middleware' => []], function () {
     Route::match(array('GET', 'POST'), '/akun_keuangan/filter', 'AkunKeuanganController@filter');
     Route::match(array('GET', 'POST'), '/akun_keuangan/print', 'AkunKeuanganController@print');
 
+    Route::get('/tabungan', 'TabunganController@index');
+    Route::post('/tabungan/add', 'TabunganController@add');
+    Route::get('/tabungan/{id}/delete', 'TabunganController@delete');
+    Route::get('/tabungan/{id}/edit', 'TabunganController@edit');
+    Route::post('/tabungan/{id}/update', 'TabunganController@update');
+    Route::match(array('GET', 'POST'), '/tabungan/filter', 'TabunganController@filter');
+    Route::match(array('GET', 'POST'), '/tabungan/print', 'TabunganController@print');
 
     Route::get('/user/changepassword', 'UserController@changepassword');
     Route::post('/user/postchangepassword', 'UserController@postchangepassword');

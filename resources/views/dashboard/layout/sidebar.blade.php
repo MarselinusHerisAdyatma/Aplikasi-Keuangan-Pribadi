@@ -123,17 +123,33 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities5"
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities6"
             aria-expanded="true" aria-controls="collapseUtilities5">
-            <i class="fas fa-fw fa-chart-line"></i>
+            <i class="fas fa-fw fa-umbrella"></i>
             <span>Asuransi</span>
         </a>
-        <div id="collapseUtilities5" class="collapse" aria-labelledby="headingUtilities"
+        <div id="collapseUtilities6" class="collapse" aria-labelledby="headingUtilities"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">MENU ASURANSI</h6>
                 <a class="collapse-item" href="/asuransi">Daftar Asuransi</a>
                 <a class="collapse-item" href="/asuransi/filter">Cetak Asuransi</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities7"
+            aria-expanded="true" aria-controls="collapseUtilities5">
+            <i class="fas fa-fw fa-piggy-bank"></i>
+            <span>Tabungan</span>
+        </a>
+        <div id="collapseUtilities7" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">MENU ASURANSI</h6>
+                <a class="collapse-item" href="/tabungan">Daftar Tabungan</a>
+                <a class="collapse-item" href="/tabungan/filter">Cetak Tabungan</a>
             </div>
         </div>
     </li>

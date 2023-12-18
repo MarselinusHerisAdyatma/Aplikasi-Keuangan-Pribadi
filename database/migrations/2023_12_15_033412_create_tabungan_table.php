@@ -15,6 +15,8 @@ class CreateTabunganTable extends Migration
     {
         Schema::create('tabungan', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('users_id');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->string('nama_tabungan');
             $table->date('tanggal_tabungan');
             $table->decimal('nominal', 10, 2);
