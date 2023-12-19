@@ -1,7 +1,7 @@
 @extends('dashboard.layout.master')
 
 @section('title_content')
-<h6 class="m-0 font-weight-bold text-primary">Filter Data Pemasukan</h6>
+<h6 class="m-0 font-weight-bold text-primary">Filter Data Asuransi</h6>
 @endsection
 
 @section('content')
@@ -10,17 +10,17 @@
     {{ session('status') }}
 </div>
 @endif
-<form action="/pemasukan/filter" method="POST" style="display:inline">
+<form action="/asuransi/filter" method="POST" style="display:inline">
     @csrf
     <div class="row">
         <div class="col-md-6">
-            <label class=" form-control-label">Tanggal Awal</label>
+            <label class=" form-control-label">Tanggal Dibuat Awal</label>
             <div class="input-group">
                 <input id="startdate" type="date" name="startdate" class="form-control" required>
             </div>
         </div>
         <div class="col-md-6">
-            <label class=" form-control-label">Tanggal Akhir</label>
+            <label class=" form-control-label">Tanggal Dibuat Akhir</label>
             <div class="input-group">
                 <input id="enddate" type="date" name="enddate" class="form-control" required>
             </div>
@@ -28,16 +28,16 @@
     </div><br>
     <button type="submit" class="btn btn-success">Filter Data</button>
 </form>
-@if (!$pemasukan->isEmpty())
+@if (!$asuransi->isEmpty())
 @if (!empty($startdate) && !empty($enddate))
-<form action="/pemasukan/print" method="POST" target="_blank" style="display:inline">
+<form action="/asuransi/print" method="POST" target="_blank" style="display:inline">
     @csrf
     <input type="hidden" value="{{ $startdate }}" name="startdate">
     <input type="hidden" value="{{ $enddate }}" name="enddate">
     <button type="submit" class="btn btn-warning">Cetak Filter Data</button>
 </form>
 @else
-<a href="/pemasukan/print" target="_blank" class="btn btn-warning">Cetak Semua Data</a>
+<a href="/asuransi/print" target="_blank" class="btn btn-warning">Cetak Semua Data</a>
 @endif
 @else
 <center>
@@ -49,19 +49,23 @@
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
-                <th>Nama Pemasukan</th>
+                <th>Nama asuransi</th>
                 <th>Kategori</th>
-                <th>Tanggal Pemasukan</th>
-                <th>Jumlah Pemasukan</th>
+                <th>Tanggal asuransi Dibuat</th>
+                <th>Nominal</th>
+                <th>Periode</th>
+                <th>Keterangan</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($pemasukan as $pemasukan)
+            @foreach($asuransi as $asuransi)
             <tr>
-                <td>{{ $pemasukan->nama_pemasukan }}</td>
-                <td>{{ $pemasukan->kategori }}</td>
-                <td>{{ date("d-m-Y", strtotime($pemasukan->tanggal_pemasukan)) }}</td>
-                <td>Rp. {{ number_format($pemasukan->jumlah_pemasukan, 0, ',', '.') }}</td>
+                <td>{{ $asuransi->nama_asuransi }}</td>
+                <td>{{ $asuransi->kategori }}</td>
+                <td>{{ date("d-m-Y", strtotime($asuransi->tanggal_asuransi)) }}</td>
+                <td>Rp. {{ number_format($asuransi->nominal, 0, ',', '.') }}</td>
+                <td>{{ $asuransi->periode }}</td>
+                <td>{{ $asuransi->keterangan }}</td>
             </tr>
             @endforeach
         </tbody>

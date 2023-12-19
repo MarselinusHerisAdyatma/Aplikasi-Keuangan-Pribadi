@@ -1,26 +1,30 @@
 @extends('dashboard.layout.reportmaster')
 
 @section('title_content')
-Pemasukan
+Asuransi
 @endsection
 
 @section('content')
 <table class="table table-bordered" style="margin-top: 10px">
     <thead class="thead-dark">
         <tr>
-            <th>Nama Pemasukan</th>
-            <th>Kategori</th>
-            <th>Tanggal Pemasukan</th>
-            <th>Jumlah Pemasukan</th>
+                <th>Nama Asuransi</th>
+                <th>Kategori</th>
+                <th>Tanggal Mulai Asuransi</th>
+                <th>Nominal</th>
+                <th>Periode</th>
+                <th>Keterangan</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($pemasukan as $pemasukan)
+        @foreach($asuransi as $asuransi)
         <tr>
-            <td>{{ $pemasukan->nama_pemasukan }}</td>
-            <td>{{ $pemasukan->kategori }}</td>
-            <td>{{ date("d-m-Y", strtotime($pemasukan->tanggal_pemasukan)) }}</td>
-            <td>Rp. {{ number_format($pemasukan->jumlah_pemasukan, 0, ',', '.') }}</td>
+                <td>{{ $asuransi->nama_asuransi }}</td>
+                <td>{{ $asuransi->kategori }}</td>
+                <td>{{ date("d-m-Y", strtotime($asuransi->tanggal_asuransi)) }}</td>
+                <td>Rp. {{ number_format($asuransi->nominal, 0, ',', '.') }}</td>
+                <td>{{ $asuransi->periode }}</td>
+                <td>{{ $asuransi->keterangan }}</td>
         </tr>
         @endforeach
     </tbody>
