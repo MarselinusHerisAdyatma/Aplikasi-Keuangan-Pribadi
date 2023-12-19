@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Investasi extends Model
 {
-    protected $table = 'investasis'; // Set the table name
+    protected $table = 'investasi'; // Set the table name
 
     protected $fillable = [
         'user_id',
@@ -22,9 +22,9 @@ class Investasi extends Model
         'keterangan',
     ];
 
-    // Relationships
-    public function jenis()
-    {
-        return $this->belongsTo(Jenis::class, 'id_jenis');
-    }
+    // // Relationships
+    // public function jenis()
+    // {
+    //     return $this->belongsTo(Jenis::class, 'id_jenis');
+    // }
 }

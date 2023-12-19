@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAsuransisTable extends Migration
+class CreateAsuransiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAsuransisTable extends Migration
      */
     public function up()
     {
-        Schema::create('asuransis', function (Blueprint $table) {
+        Schema::create('asuransi', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users');
@@ -21,7 +21,7 @@ class CreateAsuransisTable extends Migration
             $table->string('kategori');
             $table->date('tanggal_asuransi');
             $table->decimal('nominal', 10, 2);
-            $table->date('tanggal_periode');
+            $table->string('periode');
             $table->string('keterangan');
             $table->timestamps();
         });
@@ -34,6 +34,6 @@ class CreateAsuransisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asuransis');
+        Schema::dropIfExists('asuransi');
     }
 }

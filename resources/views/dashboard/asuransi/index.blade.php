@@ -18,26 +18,30 @@
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
-                <th>Nama Pemasukan</th>
+                <th>Nama Asuransi</th>
                 <th>Kategori</th>
-                <th>Tanggal Pemasukan</th>
-                <th>Jumlah Pemasukan</th>
+                <th>Tanggal Mulai Asuransi</th>
+                <th>Nominal</th>
+                <th>Periode</th>
+                <th>Keterangan</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($pemasukan as $pemasukan)
+            @foreach($asuransi as $asuransi)
             <tr>
-                <td>{{ $pemasukan->nama_pemasukan }}</td>
-                <td>{{ $pemasukan->kategori }}</td>
-                <td>{{ date("d-m-Y", strtotime($pemasukan->tanggal_pemasukan)) }}</td>
-                <td>Rp. {{ number_format($pemasukan->jumlah_pemasukan, 0, ',', '.') }}</td>
+                <td>{{ $asuransi->nama_asuransi }}</td>
+                <td>{{ $asuransi->kategori }}</td>
+                <td>{{ date("d-m-Y", strtotime($asuransi->tanggal_asuransi)) }}</td>
+                <td>Rp. {{ number_format($asuransi->nominal, 0, ',', '.') }}</td>
+                <td>{{ $asuransi->periode }}</td>
+                <td>{{ $asuransi->keterangan }}</td>
                 <td>
-                    <a href="/pemasukan/{{ $pemasukan->id }}/edit" class="btn btn-sm btn-warning shadow-sm mb-3">
+                    <a href="/asuransi/{{ $asuransi->id }}/edit" class="btn btn-sm btn-warning shadow-sm mb-3">
                         <i class="fas fa-edit fa-sm text-white-50"></i> Edit
                     </a>
-                    <a href="/pemasukan/{{ $pemasukan->id }}/delete" class="btn btn-sm btn-danger shadow-sm mb-3"
-                        onclick="return confirm('Apakah anda ingin menghapus data ({{ $pemasukan->nama_pemasukan }})?')"><i
+                    <a href="/asuransi/{{ $asuransi->id }}/delete" class="btn btn-sm btn-danger shadow-sm mb-3"
+                        onclick="return confirm('Apakah anda ingin menghapus data ({{ $asuransi->nama_asuransi }})?')"><i
                         class="fas fa-trash fa-sm text-white-50"></i> Hapus</a>
                 </td>
             </tr>
@@ -52,33 +56,30 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Pemasukan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Asuransi</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/pemasukan/add" method="POST">
+                <form action="/asuransi/add" method="POST">
                     @csrf
-                    <div class="form-group {{ $errors->has('nama_pemasukan') ? ' has-error': '' }}">
-                        <label>Nama Pemasukan</label>
-                        <input type="text" name="nama_pemasukan" class="form-control form-control-user"
-                            value="{{ old('nama_pemasukan') }}" placeholder="Masukan Nama Pemasukan" required>
-                        @if($errors->has('nama_pemasukan'))
-                        <span class="help-block">{{ $errors->first('nama_pemasukan') }}</span>
+                    <div class="form-group {{ $errors->has('nama_asuransi') ? ' has-error': '' }}">
+                        <label>Nama asuransi</label>
+                        <input type="text" name="nama_asuransi" class="form-control form-control-user"
+                            value="{{ old('nama_asuransi') }}" placeholder="Masukan Nama Asuransi" required>
+                        @if($errors->has('nama_asuransi'))
+                        <span class="help-block">{{ $errors->first('nama_asuransi') }}</span>
                         @endif
                     </div>
                     <div class="form-group {{ $errors->has('kategori') ? ' has-error': '' }}">
                         <label>Kategori</label>
                         <select class="form-control" name="kategori" required>
                             <option value="">Pilih Kategori</option>
+                            <option value="Kesehatan" {{ (old('kategori') == 'Kesehatan') ? 'selected' : '' }}>Kesehatan</option>
                             <option value="Kerja" {{ (old('kategori') == 'Kerja') ? 'selected' : '' }}>Kerja</option>
-                            <option value="Hadiah" {{ (old('kategori') == 'Hadiah') ? 'selected' : '' }}>Hadiah</option>
-                            <option value="Orang Tua" {{ (old('kategori') == 'Orang Tua') ? 'selected' : '' }}>Orang Tua
+                            <option value="Jaminan Masa Tua" {{ (old('kategori') == 'Jaminan Masa Tua') ? 'selected' : '' }}>Jaminan Masa Tua
                             </option>
-                            <option value="Saham/Investasi"
-                                {{ (old('kategori') == 'Saham/Investasi') ? 'selected' : '' }}>
-                                Saham/Investasi</option>
                             <option value="Lain-lain" {{ (old('kategori') == 'Lain-lain') ? 'selected' : '' }}>Lain-Lain
                             </option>
                         </select>
@@ -86,20 +87,36 @@
                         <span class="help-block">{{ $errors->first('kategori') }}</span>
                         @endif
                     </div>
-                    <div class="form-group {{ $errors->has('tanggal_pemasukan') ? ' has-error': '' }}">
-                        <label>Tanggal Pemasukan</label>
-                        <input type="date" name="tanggal_pemasukan" class="form-control form-control-user"
-                            value="{{ old('tanggal_pemasukan') }}" required>
-                        @if($errors->has('tanggal_pemasukan'))
-                        <span class="help-block">{{ $errors->first('tanggal_pemasukan') }}</span>
+                    <div class="form-group {{ $errors->has('tanggal_asuransi') ? ' has-error': '' }}">
+                        <label>Tanggal Asuransi Dibuat</label>
+                        <input type="date" name="tanggal_asuransi" class="form-control form-control-user"
+                            value="{{ old('tanggal_asuransi') }}" required>
+                        @if($errors->has('tanggal_asuransi'))
+                        <span class="help-block">{{ $errors->first('tanggal_asuransi') }}</span>
                         @endif
                     </div>
-                    <div class="form-group {{ $errors->has('jumlah_pemasukan') ? ' has-error': '' }}">
-                        <label>Jumlah Pemasukan</label>
-                        <input type="number" name="jumlah_pemasukan" class="form-control form-control-user"
-                            value="{{ old('jumlah_pemasukan') }}" placeholder="Masukan Jumlah Pemasukan" required>
-                        @if($errors->has('jumlah_pemasukan'))
-                        <span class="help-block">{{ $errors->first('jumlah_pemasukan') }}</span>
+                    <div class="form-group {{ $errors->has('nominal') ? ' has-error': '' }}">
+                        <label>Nominal</label>
+                        <input type="number" name="nominal" class="form-control form-control-user"
+                            value="{{ old('nominal') }}" placeholder="Masukan Jumlah Nominal" required>
+                        @if($errors->has('nominal'))
+                        <span class="help-block">{{ $errors->first('nominal') }}</span>
+                        @endif
+                    </div>
+                    <div class="form-group {{ $errors->has('periode') ? ' has-error': '' }}">
+                        <label>Periode</label>
+                        <input type="text" name="periode" class="form-control form-control-user"
+                            value="{{ old('periode') }}" required>
+                        @if($errors->has('periode'))
+                        <span class="help-block">{{ $errors->first('periode') }}</span>
+                        @endif
+                    </div>
+                    <div class="form-group {{ $errors->has('keterangan') ? ' has-error': '' }}">
+                        <label>Keterangan</label>
+                        <input type="text" name="keterangan" class="form-control form-control-user"
+                            value="{{ old('keterangan') }}" placeholder="Masukan Keterangan asuransi" required>
+                        @if($errors->has('keterangan'))
+                        <span class="help-block">{{ $errors->first('keterangan') }}</span>
                         @endif
                     </div>
             </div>
