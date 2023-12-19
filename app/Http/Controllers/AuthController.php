@@ -27,23 +27,28 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
+    // app/Http/Controllers/AuthController.php
+
     public function postRegister(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|min:3',
             'email' => 'email|unique:users',
-            'password' => 'required'
+            'password' => 'required',
+            'role' => 'required|in:user,admin',
         ]);
 
         $user = new User;
         $user->name = trim($request->name);
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
+        $user->role = $request->role;
         $user->remember_token = str_random(60);
         $user->save();
 
         return redirect('/login')->with('status', 'You"re Successfully Registered');
     }
+
 
     public function logout()
     {

@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('home.index');
 });
 
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    // Rute-rute admin di sini
+    Route::get('/admin/listuser', [AdminController::class, 'listuser'])->name('admin.listuser');
+    Route::get('/admin/manageuser/{id}', [AdminController::class, 'manageuser'])->name('admin.manageuser');
+    Route::post('/admin/postmanageuser/{id}', [AdminController::class, 'postmanageuser'])->name('admin.postmanageuser');
+});
+
+
 Route::get('/login', 'AuthController@login')->name('login');
 Route::get('/register', 'AuthController@register')->name('register');
 Route::get('/logout', 'AuthController@logout');

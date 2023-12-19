@@ -37,7 +37,18 @@
                                         <span class="help-block">{{ $errors->first('password') }}</span>
                                         @endif
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                                    <div class="form-group role-btn-group text-center">
+                                        <label class="role-btn btn btn-outline-secondary {{ old('role') == 'user' ? 'active' : '' }}">
+                                            <input type="radio" name="role" value="user" autocomplete="off" {{ old('role') == 'user' ? 'checked' : '' }}> User
+                                        </label>
+                                        <label class="role-btn btn btn-outline-secondary {{ old('role') == 'admin' ? 'active' : '' }}">
+                                            <input type="radio" name="role" value="admin" autocomplete="off" {{ old('role') == 'admin' ? 'checked' : '' }}> Admin
+                                        </label>
+                                        @if($errors->has('role'))
+                                            <span class="help-block">{{ $errors->first('role') }}</span>
+                                        @endif
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-user btn-block" style="padding: 10px;">
                                         Register
                                     </button>
                                 </form>
@@ -55,4 +66,17 @@
     </div>
 </div>
 
+<!-- Tambahkan script Bootstrap dan jQuery -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $(".role-btn").on("click", function() {
+            $(".role-btn").removeClass("active");
+            $(this).addClass("active");
+        });
+    });
+</script>
 @endsection
