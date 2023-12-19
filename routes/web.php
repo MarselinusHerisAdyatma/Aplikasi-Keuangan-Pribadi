@@ -24,6 +24,8 @@ Route::post('/postRegister', 'AuthController@postRegister');
 Route::group(['middleware' => []], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
+    Route::get('/income-chart', 'PemasukanController@showIncomeChart');
+
     Route::get('/pemasukan', 'PemasukanController@index');
     Route::post('/pemasukan/add', 'PemasukanController@add');
     Route::get('/pemasukan/{id}/delete', 'PemasukanController@delete');

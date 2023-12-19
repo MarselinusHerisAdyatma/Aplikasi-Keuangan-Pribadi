@@ -11,7 +11,11 @@ class PemasukanController extends Controller
     public function index()
     {
         $pemasukan = Pemasukan::where('users_id', auth()->user()->id)->get();
-        return view('dashboard.pemasukan.index', ['pemasukan' => $pemasukan]);
+
+        // Fetch data for the chart
+        $incomeData = $this->getIncomeChartData();
+    
+        return view('dashboard.pemasukan.index', compact('pemasukan', 'incomeData'));
     }
 
     public function add(Request $request)
@@ -106,5 +110,24 @@ class PemasukanController extends Controller
                 ->get();
         }
         return view('dashboard.pemasukan.report', ['pemasukan' => $pemasukan]);
+    }
+
+    public function getIncomeChartData()
+    {
+        // Customize this method based on your data structure
+        $income = Pemasukan::where('users_id', auth()->user()->id)->get();
+
+        $dates = $income->pluck('tanggal_pemasukan');
+        $amounts = $income->pluck('jumlah_pemasukan');
+
+        return compact('dates', 'amounts');
+    }
+
+    public function showIncomeChart()
+    {
+        // Fetch data for the chart
+        $incomeData = $this->getIncomeChartData();
+
+        return view('income-chart', compact('incomeData'));
     }
 }
