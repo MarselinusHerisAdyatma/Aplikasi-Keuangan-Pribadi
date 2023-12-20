@@ -23,16 +23,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 
-Route::get('/login', 'AuthController@login')->name('login');
-Route::get('/register', 'AuthController@register')->name('register');
-Route::get('/logout', 'AuthController@logout');
-Route::post('/postLogin', 'AuthController@postLogin');
-Route::post('/postRegister', 'AuthController@postRegister');
+    Route::get('/login', 'AuthController@login')->name('login');
+    Route::get('/register', 'AuthController@register')->name('register');
+    Route::get('/logout', 'AuthController@logout');
+    Route::post('/postLogin', 'AuthController@postLogin');
+    Route::post('/postRegister', 'AuthController@postRegister');
 
 Route::group(['middleware' => []], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/get-updated-totals', 'DashboardController@getUpdatedTotals');
 
-    Route::get('/income-chart', 'PemasukanController@showIncomeChart');
 
     Route::get('/pemasukan', 'PemasukanController@index');
     Route::post('/pemasukan/add', 'PemasukanController@add');
