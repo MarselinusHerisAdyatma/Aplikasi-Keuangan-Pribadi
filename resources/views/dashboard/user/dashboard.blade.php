@@ -25,6 +25,17 @@
 
 </head>
 
+<style>
+    footer {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        background-color: #fff; 
+        border-top: 1px solid #e3e6f0; 
+        padding: 10px 20px; 
+    }
+</style>
+
 <body id="page-top">
 
     <!-- Page Wrapper -->

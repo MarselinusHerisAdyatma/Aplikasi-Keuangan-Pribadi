@@ -154,21 +154,6 @@
         </div>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities8"
-            aria-expanded="true" aria-controls="collapseUtilities8">
-            <i class="fas fa-fw fa-piggy-bank"></i>
-            <span>Chart</span>
-        </a>
-        <div id="collapseUtilities8" class="collapse" aria-labelledby="headingUtilities"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Chart</h6>
-                <a class="collapse-item" href="/income-chart">Chart</a>
-            </div>
-        </div>
-    </li>
-
     @if(auth()->user()->role == "admin")
     <hr class="sidebar-divider">
     <div class="sidebar-heading">
