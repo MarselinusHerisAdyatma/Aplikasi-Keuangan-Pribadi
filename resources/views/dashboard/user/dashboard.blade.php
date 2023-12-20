@@ -130,8 +130,6 @@
                         </script>
                     </div>
 
-
-
                     <div class="row">
                         <!-- Include Income Chart Here -->
                         <div class="col-xl-6 col-lg-5">
@@ -151,7 +149,7 @@
                                             data: {
                                                 labels: incomeData.dates,
                                                 datasets: [{
-                                                    label: 'Total Income',
+                                                    label: 'Pemasukan',
                                                     data: incomeData.amounts,
                                                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                                                     borderColor: 'rgba(75, 192, 192, 1)',
@@ -190,7 +188,7 @@
                                             data: {
                                                 labels: expenseData.dates,
                                                 datasets: [{
-                                                    label: 'Total Expense',
+                                                    label: 'Pengeluaran',
                                                     data: expenseData.amounts,
                                                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                                     borderColor: 'rgba(255, 99, 132, 1)',
