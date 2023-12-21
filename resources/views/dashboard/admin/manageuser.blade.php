@@ -23,6 +23,6 @@
         @endif
     </div>
     <a href="/admin/listuser" class="btn btn-primary">Back</a>
-    <button class="btn btn-info" type="submit">Edit Data</button>
+    <button class="btn btn-info" type="submit">Simpan</button>
 </form>
 @endsection
