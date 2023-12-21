@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Pengeluaran;
+use App\Pemasukan;
 
 class AdminController extends Controller
 {
@@ -30,4 +32,28 @@ class AdminController extends Controller
 
         return redirect('/admin/listuser')->with('status', 'Sukses Edit User');
     }
+
+    public function getUpdatedTotals($id)
+    {
+        // Fetch the user data based on the provided ID
+        $user = User::find($id);
+    
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+    
+        // Calculate the updated saldo, total_pemasukan, and total_pengeluaran
+        $totalPemasukan = Pemasukan::where('users_id', $user->id)->sum('jumlah_pemasukan');
+        $totalPengeluaran = Pengeluaran::where('users_id', $user->id)->sum('jumlah_pengeluaran');
+        
+        // Calculate saldo as the difference between totalPemasukan and totalPengeluaran
+        $saldo = $totalPemasukan - $totalPengeluaran;
+    
+        return response()->json([
+            'saldo' => number_format($saldo, 0, ',', '.'),
+            'totalPemasukan' => number_format($totalPemasukan, 0, ',', '.'),
+            'totalPengeluaran' => number_format($totalPengeluaran, 0, ',', '.'),
+        ]);
+    }
+    
 }

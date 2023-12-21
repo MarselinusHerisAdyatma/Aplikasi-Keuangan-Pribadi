@@ -24,18 +24,41 @@
             </tr>
         </thead>
         <tbody>
+            <!-- Include jQuery -->
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             @foreach($user as $user)
             <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->role }}</td>
-                <td>Rp. {{ number_format($user->saldo, 0, ',', '.') }}</td>
-                <td>Rp. {{ number_format($user->total_pemasukan, 0, ',', '.') }}</td>
-                <td>Rp. {{ number_format($user->total_pengeluaran, 0, ',', '.') }}</td>
+                <td id="totalSaldo_{{ $user->id }}"></td>
+                <td id="totalPemasukan_{{ $user->id }}"></td>
+                <td id="totalPengeluaran_{{ $user->id }}"></td>
                 <td><a href="/admin/user/{{ $user->id }}/manage" class="btn btn-sm btn-warning shadow-sm mb-3">
                         <i class="fas fa-pen fa-sm text-white-50"></i> Manage Role / Deactivate</a>
                 </td>
             </tr>
+            <script>
+                // Update the total values when new pemasukan or pengeluaran is added
+                function updateTotalValues(userId) {
+                    $.ajax({
+                        url: '/get-updated-totals/' + userId, // Pass the user ID in the URL
+                        method: 'GET',
+                        success: function (data) {
+                            $('#totalSaldo_' + userId).html('Rp. ' + data.saldo);
+                            $('#totalPemasukan_' + userId).html('Rp. ' + data.totalPemasukan);
+                            $('#totalPengeluaran_' + userId).html('Rp. ' + data.totalPengeluaran);
+                        },
+                        error: function (error) {
+                            console.error('Error updating totals:', error);
+                        }
+                    });
+                }
+
+                // Call the updateTotalValues function for each user
+                // For example, call this function after the table is rendered
+                updateTotalValues({{ $user->id }});
+            </script>
             @endforeach
         </tbody>
     </table>

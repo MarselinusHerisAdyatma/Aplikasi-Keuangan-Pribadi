@@ -32,6 +32,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::group(['middleware' => []], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('/get-updated-totals', 'DashboardController@getUpdatedTotals');
+    Route::get('/get-updated-totals/{id}', 'AdminController@getUpdatedTotals');
 
 
     Route::get('/pemasukan', 'PemasukanController@index');
