@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('template/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset('landing_page/assets/img/Money.png') }}">
 
     <!-- Custom styles for this page -->
     <link href="{{ asset('template/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -61,16 +62,6 @@
 
             </div>
             <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Kelompok 4</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->

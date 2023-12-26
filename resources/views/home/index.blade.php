@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Catatan Keuangan</title>
+    <title>MoneyList</title>
     <meta content="" name="descriptison">
     <meta content="" name="keywords">
 
@@ -24,6 +24,7 @@
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('landing_page/assets/css/style.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset('landing_page/assets/img/Money.png') }}">
 
 </head>
 
@@ -34,7 +35,7 @@
         <div class="container d-flex">
 
             <div class="logo mr-auto">
-                <h1 class="text-light"><a href="index.html"><span>Catatan Keuangan</span></a></h1>
+                <h1 class="text-light"><a href="index.html"><span>MoneyList</span></a></h1>
             </div>
 
             <nav class="nav-menu d-none d-lg-block">
@@ -90,7 +91,7 @@
 
                 <div class="section-title" data-aos="fade-up">
                     <h2>Fitur</h2>
-                    <p>Fitur-fitur yang anda dapatkan saat menggunakan Catatan Keuangan</p>
+                    <p>Fitur-fitur yang anda dapatkan saat menggunakan MoneyList</p>
                 </div>
 
                 <div class="row">

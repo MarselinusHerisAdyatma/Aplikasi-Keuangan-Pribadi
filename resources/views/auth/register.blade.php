@@ -37,7 +37,7 @@
                                         <span class="help-block">{{ $errors->first('password') }}</span>
                                         @endif
                                     </div>
-                                    <div class="form-group role-btn-group text-center">
+                                    <!-- <div class="form-group role-btn-group text-center">
                                         <label class="role-btn btn btn-outline-secondary {{ old('role') == 'user' ? 'active' : '' }}">
                                             <input type="radio" name="role" value="user" autocomplete="off" {{ old('role') == 'user' ? 'checked' : '' }}> User
                                         </label>
@@ -47,8 +47,8 @@
                                         @if($errors->has('role'))
                                             <span class="help-block">{{ $errors->first('role') }}</span>
                                         @endif
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-user btn-block" style="padding: 10px;">
+                                    </div> -->
+                                    <button input type="radio" name="role" value="user" autocomplete="off" {{ old('role') == 'user' ? 'checked' : '' }} type="submit" class="btn btn-primary btn-user btn-block" style="padding: 10px;">
                                         Register
                                     </button>
                                 </form>

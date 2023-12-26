@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('template/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset('landing_page/assets/img/Money.png') }}">
 
     <!-- Custom styles for this page -->
     <link href="{{ asset('template/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -116,124 +117,217 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Total Tabungan -->
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Total Tabungan</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalTabungan"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Total Hutang -->
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-danger shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                Total Hutang</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalHutang"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Total Piutang -->
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Total Piutang</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalPiutang"></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Include jQuery -->
                         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
                         <script>
-                            // Update the total values when new pemasukan or pengeluaran is added
                             function updateTotalValues() {
                                 $.ajax({
-                                    url: '/get-updated-totals', // Updated route
+                                    url: '/get-updated-totals', 
                                     method: 'GET',
                                     success: function (data) {
                                         $('#totalSaldo').html('Rp. ' + data.saldo);
                                         $('#totalPemasukan').html('Rp. ' + data.totalPemasukan);
                                         $('#totalPengeluaran').html('Rp. ' + data.totalPengeluaran);
+                                        $('#totalTabungan').html('Rp. ' + data.totalTabungan); 
+                                        $('#totalHutang').html('Rp. ' + data.totalHutang);
+                                        $('#totalPiutang').html('Rp. ' + data.totalPiutang);
                                     },
                                     error: function (error) {
                                         console.error('Error updating totals:', error);
                                     }
                                 });
                             }
-                            // Call the updateTotalValues function when new pemasukan or pengeluaran is added
-                            // For example, call this function after a successful form submission
                             updateTotalValues();
-                        </script>
+                        </script>   
                     </div>
-
                     <div class="row">
-                        <!-- Include Income Chart Here -->
-                        <div class="col-xl-6 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <div class="chart-container">
-                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold text-primary">Grafik Pemasukan</h6>
-                                    </div>
-                                    <canvas id="incomeChart" width="400" height="200"></canvas>
-                                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                                    <script>
-                                        var ctx = document.getElementById('incomeChart').getContext('2d');
-                                        var incomeData = @json($incomeData);
+                            <!-- Include Income Chart Here -->
+                            <div class="col-xl-4 col-md-6 mb-4">
+                                <div class="card shadow mb-4">
+                                    <div class="chart-container">
+                                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                            <h6 class="m-0 font-weight-bold text-primary">Grafik Pemasukan (Bar Chart)</h6>
+                                        </div>
+                                        <canvas id="incomeChart" width="400" height="200"></canvas>
+                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                        <script>
+                                            var ctxIncome = document.getElementById('incomeChart').getContext('2d');
+                                            var incomeData = @json($incomeDataCategories);
 
-                                        var chart = new Chart(ctx, {
-                                            type: 'line',
-                                            data: {
-                                                labels: incomeData.dates,
-                                                datasets: [{
-                                                    label: 'Pemasukan',
-                                                    data: incomeData.amounts,
-                                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                                    borderWidth: 1
-                                                }]
-                                            },
-                                            options: {
-                                                scales: {
-                                                    y: {
-                                                        beginAtZero: true
+                                            var chartIncome = new Chart(ctxIncome, {
+                                                type: 'bar',
+                                                data: {
+                                                    labels: incomeData.categories,
+                                                    datasets: [{
+                                                        label: 'Pemasukan',
+                                                        data: incomeData.amounts,
+                                                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                                        borderWidth: 2
+                                                    }]
+                                                },
+                                                options: {
+                                                    scales: {
+                                                        y: {
+                                                            beginAtZero: true
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        });
-                                    </script>
+                                            });
+                                        </script>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- End Income Chart -->
-                        
-                        <!-- Include Expense Chart Here -->
-                        <div class="col-xl-6 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <div class="chart-container">
-                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold text-primary">Grafik Pengeluaran</h6>
-                                    </div>
-                                    <canvas id="expenseChart" width="400" height="200"></canvas>
-                                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                                    <script>
-                                        var ctxExpense = document.getElementById('expenseChart').getContext('2d');
-                                        var expenseData = @json($expenseData);
 
-                                        var chartExpense = new Chart(ctxExpense, {
-                                            type: 'line',
-                                            data: {
-                                                labels: expenseData.dates,
-                                                datasets: [{
-                                                    label: 'Pengeluaran',
-                                                    data: expenseData.amounts,
-                                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                                    borderColor: 'rgba(255, 99, 132, 1)',
-                                                    borderWidth: 1
-                                                }]
-                                            },
-                                            options: {
-                                                scales: {
-                                                    y: {
-                                                        beginAtZero: true
+                            <!-- Include Expense Chart Here -->
+                            <div class="col-xl-4 col-md-6 mb-4">
+                                <div class="card shadow mb-4">
+                                    <div class="chart-container">
+                                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                            <h6 class="m-0 font-weight-bold text-primary">Grafik Pengeluaran (Bar Chart)</h6>
+                                        </div>
+                                        <canvas id="expenseChart" width="400" height="200"></canvas>
+                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                        <script>
+                                            var ctxExpense = document.getElementById('expenseChart').getContext('2d');
+                                            var expenseData = @json($expenseDataCategories);
+
+                                            var chartExpense = new Chart(ctxExpense, {
+                                                type: 'bar',
+                                                data: {
+                                                    labels: expenseData.categories,
+                                                    datasets: [{
+                                                        label: 'Pengeluaran',
+                                                        data: expenseData.amounts,
+                                                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                                        borderWidth: 2
+                                                    }]
+                                                },
+                                                options: {
+                                                    scales: {
+                                                        y: {
+                                                            beginAtZero: true
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        });
-                                    </script>
+                                            });
+                                        </script>
+                                    </div>
                                 </div>
                             </div>
+                    </div>
+                        <div class="row">
+                            <!-- Include Combined Line Chart Here -->
+                            <div class="col-xl-4 col-md-6 mb-4">
+                                <div class="card shadow mb-4">
+                                    <div class="chart-container">
+                                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                            <h6 class="m-0 font-weight-bold text-primary">Grafik Pemasukan dan Pengeluaran (Line Chart)</h6>
+                                        </div>
+                                        <canvas id="combinedLineChart" width="800" height="400"></canvas>
+                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                        <script>
+                                            var ctxCombinedLine = document.getElementById('combinedLineChart').getContext('2d');
+                                            var incomeData = @json($incomeData);
+                                            var expenseData = @json($expenseData);
+
+                                            var combinedLineChart = new Chart(ctxCombinedLine, {
+                                                type: 'line',
+                                                data: {
+                                                    labels: incomeData.dates,
+                                                    datasets: [
+                                                        {
+                                                            label: 'Pemasukan',
+                                                            data: incomeData.amounts,
+                                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                                            borderColor: 'rgba(75, 192, 192, 1)',
+                                                            borderWidth: 2,
+                                                        },
+                                                        {
+                                                            label: 'Pengeluaran',
+                                                            data: expenseData.amounts,
+                                                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                                            borderColor: 'rgba(255, 99, 132, 1)',
+                                                            borderWidth: 2,
+                                                        },
+                                                    ]
+                                                },
+                                                options: {
+                                                    scales: {
+                                                        y: {
+                                                            beginAtZero: true
+                                                        }
+                                                    }
+                                                },
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Combined Line Chart -->
                         </div>
-                        <!-- End Expense Chart -->
                     </div>
                 <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Kelompok 4</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->
