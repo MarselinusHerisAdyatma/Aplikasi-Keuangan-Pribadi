@@ -198,7 +198,7 @@
                     </div>
                     <div class="row">
                             <!-- Include Income Chart Here -->
-                            <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="col-xl-6 col-md-6 mb-4">
                                 <div class="card shadow mb-4">
                                     <div class="chart-container">
                                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -236,7 +236,7 @@
                             </div>
 
                             <!-- Include Expense Chart Here -->
-                            <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="col-xl-6 col-md-6 mb-4">
                                 <div class="card shadow mb-4">
                                     <div class="chart-container">
                                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -275,7 +275,7 @@
                     </div>
                         <div class="row">
                             <!-- Include Combined Line Chart Here -->
-                            <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="col-xl-6 col-md-6 mb-4">
                                 <div class="card shadow mb-4">
                                     <div class="chart-container">
                                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -322,6 +322,131 @@
                                 </div>
                             </div>
                             <!-- End Combined Line Chart -->
+
+                            <!-- Include Combined Line Chart for Investasi Here -->
+                            <div class="col-xl-6 col-md-6 mb-4">
+                                <div class="card shadow mb-4">
+                                    <div class="chart-container">
+                                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                            <h6 class="m-0 font-weight-bold text-primary">Grafik Performa Investasi (Line Chart)</h6>
+                                        </div>
+                                        <canvas id="investasiLineChart" width="800" height="400"></canvas>
+                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                        <script>
+                                            var ctxInvestasiLine = document.getElementById('investasiLineChart').getContext('2d');
+                                            var investasiData = @json($investasiData);
+
+                                            var investasiLineChart = new Chart(ctxInvestasiLine, {
+                                                type: 'line',
+                                                data: {
+                                                    labels: investasiData.dates,
+                                                    datasets: [
+                                                        {
+                                                            label: 'Nominal Modal',
+                                                            data: investasiData.nominal_modals,
+                                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                                            borderColor: 'rgba(75, 192, 192, 1)',
+                                                            borderWidth: 2,
+                                                        },
+                                                        {
+                                                            label: 'Nominal Investasi',
+                                                            data: investasiData.nominal_investasis,
+                                                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                                            borderColor: 'rgba(255, 99, 132, 1)',
+                                                            borderWidth: 2,
+                                                        },
+                                                    ]
+                                                },
+                                                options: {
+                                                    scales: {
+                                                        y: {
+                                                            beginAtZero: true
+                                                        }
+                                                    }
+                                                },
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Combined Line Chart for Investasi -->
+                            </div>
+                        <div class="row">
+                            <!-- Include Insurance List Here -->
+                            <div class="col-xl-4 col-md-6 mb-4">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Daftar Asuransi</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul>
+                                            @foreach($insurances as $insurance)
+                                                <li>
+                                                    <strong>Nama Asuransi:</strong> {{ $insurance->nama_asuransi }}
+                                                    <br>
+                                                    <strong>Kategori:</strong> {{ $insurance->kategori }}
+                                                    <br>
+                                                    <strong>Tanggal dibuat:</strong> {{ $insurance->tanggal_asuransi }}
+                                                    <br>
+                                                    <strong>Tanggal Target:</strong> {{ $insurance->periode }}
+                                                    <!-- Include other details if needed -->
+                                                </li>
+                                                <br> <!-- Add spacing between insurance entries -->
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Include Insurance List Here -->
+                            <div class="col-xl-4 col-md-6 mb-4">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Daftar Wishlist</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul>
+                                            @foreach($wishlists as $wishlist)
+                                                <li>
+                                                    <strong>Nama Wishlist:</strong> {{ $wishlist->nama_wishlist }}
+                                                    <br>
+                                                    <strong>Kategori:</strong> {{ $wishlist->kategori }}
+                                                    <br>
+                                                    <strong>Tanggal dibuat:</strong> {{ $wishlist->tanggal_wishlist }}
+                                                    <br>
+                                                    <strong>Tanggal Target:</strong> {{ $wishlist->tanggal_target }}
+                                                    <!-- Include other details if needed -->
+                                                </li>
+                                                <br> <!-- Add spacing between insurance entries -->
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bagian tampilan akun keuangan -->
+                            <div class="col-xl-4 col-md-6 mb-4">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Akun Keuangan yang Dimiliki</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul>
+                                            @foreach($accounts as $account)
+                                                <li>
+                                                    <strong>Nama Rekening:</strong> {{ $account->nama_rekening }}
+                                                    <br>
+                                                    <strong>No Rekening:</strong> {{ $account->no_rekening }}
+                                                    <!-- Include other details if needed -->
+                                                </li>
+                                                <br> <!-- Add spacing between insurance entries -->
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                 <!-- /.container-fluid -->

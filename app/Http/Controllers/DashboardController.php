@@ -7,7 +7,10 @@ use App\Pengeluaran;
 use App\Pemasukan;
 use App\Tabungan;
 use App\Hutang;
-
+use App\Asuransi;
+use App\Wishlist;
+use App\Investasi;
+use App\AkunKeuangan;
 use Illuminate\Http\Request;
 use ConsoleTVs\Charts\Facades\Charts;
 
@@ -21,6 +24,10 @@ class DashboardController extends Controller
         $expenseData = $this->getExpenseChartData();
         $incomeDataCategories = $this->getIncomeChartCategoriesData();
         $expenseDataCategories = $this->getExpenseChartCategoriesData();
+        $insurances = $this->getInsurance();
+        $wishlists = $this->getWishlist();
+        $investasiData = $this->getInvestasiChartData();
+        $accounts = $this->getAccount();
 
         $data_pengeluaran = Pengeluaran::where('users_id', auth()->user()->id)->groupBy('kategori')
             ->selectRaw('sum(jumlah_pengeluaran) as sum, kategori')
@@ -46,6 +53,10 @@ class DashboardController extends Controller
             'expenseData' => $expenseData, 
             'incomeDataCategories' => $incomeDataCategories,
             'expenseDataCategories' => $expenseDataCategories,
+            'insurances' => $insurances,
+            'wishlists' => $wishlists,
+            'investasiData' => $investasiData,
+            'accounts' => $accounts,
         ]);
     }
 
@@ -98,6 +109,40 @@ class DashboardController extends Controller
         return compact('categories', 'amounts');
     }
 
+    public function getInsurance()
+    {
+        $insurances = Asuransi::where('users_id', auth()->user()->id)->get();
+    
+        return $insurances;
+    }
+
+    public function getWishlist()
+    {
+        $wishlists = Wishlist::where('users_id', auth()->user()->id)->get();
+    
+        return $wishlists;
+    }
+
+    public function getAccount()
+    {
+        $accounts = AkunKeuangan::where('id', auth()->user()->id)->get();
+    
+        return $accounts;
+    }
+
+    public function getInvestasiChartData()
+    {
+        $investasis = Investasi::where('user_id', auth()->user()->id)->get();
+        $dates = $investasis->pluck('date');
+        $nominal_modals = $investasis->pluck('nominal_modal');
+        $nominal_investasis = $investasis->pluck('nominal_investasi');
+        $statuses = $investasis->pluck('status');
+    
+        $investasiData = compact('dates', 'nominal_modals', 'nominal_investasis', 'statuses');
+    
+        return $investasiData;
+    }
+    
     public function getUpdatedTotals()
     {
         $user = User::find(auth()->user()->id);

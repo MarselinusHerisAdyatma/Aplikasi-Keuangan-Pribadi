@@ -30,7 +30,7 @@ class AsuransiController extends Controller
         $asuransi->kategori = $request->kategori;
         $asuransi->tanggal_asuransi = $request->tanggal_asuransi;
         $asuransi->nominal = $request->nominal;
-        $asuransi->tanggal_target = $request->tanggal_target;
+        $asuransi->periode = $request->periode;
         $asuransi->keterangan = $request->keterangan;
         $asuransi->save();
 
@@ -84,7 +84,7 @@ class AsuransiController extends Controller
         $asuransi->kategori = $request->kategori;
         $asuransi->tanggal_asuransi = $request->tanggal_asuransi;
         $asuransi->nominal = $request->nominal;
-        $asuransi->tanggal_target = $request->tanggal_target;
+        $asuransi->periode = $request->periode;
         $asuransi->keterangan = $request->keterangan;
         $asuransi->save();
 

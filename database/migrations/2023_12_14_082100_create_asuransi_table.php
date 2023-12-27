@@ -21,7 +21,7 @@ class CreateAsuransiTable extends Migration
             $table->string('kategori');
             $table->date('tanggal_asuransi');
             $table->decimal('nominal', 10, 2);
-            $table->string('periode');
+            $table->date('periode');
             $table->string('keterangan');
             $table->timestamps();
         });

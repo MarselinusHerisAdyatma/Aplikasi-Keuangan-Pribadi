@@ -64,7 +64,7 @@
                 <td>{{ $asuransi->kategori }}</td>
                 <td>{{ date("d-m-Y", strtotime($asuransi->tanggal_asuransi)) }}</td>
                 <td>Rp. {{ number_format($asuransi->nominal, 0, ',', '.') }}</td>
-                <td>{{ $asuransi->periode }}</td>
+                <td>{{ date("d-m-Y", strtotime($asuransi->periode)) }}</td>
                 <td>{{ $asuransi->keterangan }}</td>
             </tr>
             @endforeach

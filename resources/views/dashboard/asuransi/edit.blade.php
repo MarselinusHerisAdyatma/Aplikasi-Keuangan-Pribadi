@@ -56,7 +56,7 @@
 
             <div class="form-group {{ $errors->has('periode') ? ' has-error': '' }}">
                 <label for="periode">Periode</label>
-                <input type="text" id="periode" name="periode" class="form-control form-control-user"
+                <input type="date" id="periode" name="periode" class="form-control form-control-user"
                        value="{{ $asuransi->periode }}" required>
                 @if($errors->has('periode'))
                     <span class="help-block">{{ $errors->first('periode') }}</span>

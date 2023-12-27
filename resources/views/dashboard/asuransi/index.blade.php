@@ -34,7 +34,7 @@
                 <td>{{ $asuransi->kategori }}</td>
                 <td>{{ date("d-m-Y", strtotime($asuransi->tanggal_asuransi)) }}</td>
                 <td>Rp. {{ number_format($asuransi->nominal, 0, ',', '.') }}</td>
-                <td>{{ $asuransi->periode }}</td>
+                <td>{{ date("d-m-Y", strtotime($asuransi->periode)) }}</td>
                 <td>{{ $asuransi->keterangan }}</td>
                 <td>
                     <a href="/asuransi/{{ $asuransi->id }}/edit" class="btn btn-sm btn-warning shadow-sm mb-3">
@@ -105,7 +105,7 @@
                     </div>
                     <div class="form-group {{ $errors->has('periode') ? ' has-error': '' }}">
                         <label>Periode</label>
-                        <input type="text" name="periode" class="form-control form-control-user"
+                        <input type="date" name="periode" class="form-control form-control-user"
                             value="{{ old('periode') }}" required>
                         @if($errors->has('periode'))
                         <span class="help-block">{{ $errors->first('periode') }}</span>
